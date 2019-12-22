@@ -251,6 +251,9 @@
     <Content Include="Views\Admin\DoanhThu.cshtml" />
     <Content Include="Views\User\EditUserInfo.cshtml" />
     <Content Include="Views\Home\DanhSachSanPham.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\User\AccountList.cshtml" />
+    <Content Include="Views\User\EmployeeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

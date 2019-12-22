@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeList";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Danh sách nhân viên
+        </div>
+        <div class="card-body">
+            @*<div class="" style="margin-bottom:50px">
+                    <a class="float-right btn btn-primary" href="~/Admin/AddBook">Thêm Mới</a>
+                </div>*@
+            <table class="table text-center" style="table-layout:fixed;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Tên nhân viên</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Tình trạng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Employee != null)
+                    {
+                        foreach (var item in ViewBag.Employee)
+                        {
+                            <tr>
+                                <td>@item.name</td>
+                                <td>@item.email</td>
+                                <td>@item.address</td>
+                                <td>@item.phoneNumber</td>
+                                <td>@item.status</td>
+                                <td><a href="#" class="btn btn-outline-primary" style="margin-right:10px">Sửa</a><a href="#" class="btn btn-outline-primary">Xoá</a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

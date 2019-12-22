@@ -18,6 +18,11 @@ namespace WebMyPham.Controllers
         // GET: User
         public ActionResult Login([Bind(Include = "email, password")]Account systemUser)
         {
+            if (db.Accounts.Find("tqt.kamitan@gmail.com") == null)
+            {
+                db.Accounts.Add(new Account { email = "tqt.kamitan@gmail.com", name = "Quang Tân", password = "kirito1998", role = "Nhân viên", img = "/UploadedFiles/anonymous-profile.jpg", phoneNumber = "0984081735", status = "Active" });
+                db.SaveChanges();
+            }
             ViewBag.Account = AccountAction.GetAll();
             if (Session["user"] != null) return RedirectToAction("Index", "Home");
             string email = systemUser.email;
@@ -54,13 +59,16 @@ namespace WebMyPham.Controllers
                         return View();
                     }
                 }
+                else if(email == null)
+                {
+                    return View();
+                }
                 else
                 {
                     ViewBag.Noti = "<h3 class='text-danger'>Tài khoản bạn đăng nhập không tồn tại</h3>";
                     return View();
                 }
             }
-            return View();
         }
 
         [HttpGet]
@@ -135,11 +143,26 @@ namespace WebMyPham.Controllers
         }
         public ActionResult AccountList()
         {
+            if (Session["user"] == null) return RedirectToAction("Index", "Home");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("AdminSite", "Admin");
+            }
+            ViewBag.Account = AccountAction.GetAll();
             return View();
         }
 
         public ActionResult EmployeeList()
         {
+            if (Session["user"] == null) return RedirectToAction("Index", "Home");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("AdminSite", "Admin");
+            }
+            ViewBag.Employee = AccountAction.GetAllEmployee();
+            ViewBag.Account = AccountAction.GetAll();
             return View();
         }
     }

@@ -37,5 +37,19 @@ namespace WebMyPham.Models
             }
             return list_acc;
         }
+
+        public static List<Account> GetAllEmployee()
+        {
+            List<Account> list_acc = null;
+            using (var db = new DataContext())
+            {
+                var links = from l in db.Accounts // lấy toàn bộ liên kết
+                            where l.role.Contains("Nhân viên")
+                            select l;
+                list_acc = links.ToList();
+                db.Dispose();
+            }
+            return list_acc;
+        }
     }
 }

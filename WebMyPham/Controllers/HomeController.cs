@@ -27,6 +27,29 @@ namespace WebMyPham.Controllers
             return View(giohang);
         }
 
+        public ActionResult Search(string searchString)
+        {
+            ViewBag.Account = AccountAction.GetAll();
+            db.SaveChanges();
+            if (searchString != "")
+            {
+                var links = from l in db.Products // lấy toàn bộ liên kết
+                            where l.productName.Contains(searchString) || l.producer.Contains(searchString)
+                            select l;
+                List<Product> chapter_list = links.ToList();
+                ViewBag.Product = chapter_list;
+                return View();
+            }
+            else
+            {
+                var link = from l in db.Products
+                           select l;
+                List<Product> chapter_list = link.ToList();
+                ViewBag.Product = chapter_list;
+                return View();
+            }
+        }
+
         public ActionResult About()
         {
             ViewBag.Account = AccountAction.GetAll();
