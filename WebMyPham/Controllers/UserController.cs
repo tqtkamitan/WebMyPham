@@ -54,6 +54,11 @@ namespace WebMyPham.Controllers
                         return View();
                     }
                 }
+                else
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Tài khoản bạn đăng nhập không tồn tại</h3>";
+                    return View();
+                }
             }
             return View();
         }
@@ -78,12 +83,22 @@ namespace WebMyPham.Controllers
                 if (user != null)
                 {
                     ViewBag.Noti = "<h3 class='text-danger'>Email này đã được đăng kí</h3>";
-                    return Redirect("~/User/Register");
+                    return View();
+                }
+                if (!email.Contains("@"))
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Xin hãy nhập email</h3>";
+                    return View();
                 }
                 if (password != password2)
                 {
                     ViewBag.Noti = "<h3 class='text-danger'>Password nhập lại phải trùng Password nhập ban đầu</h3>";
-                    return Redirect("~/User/Register");
+                    return View();
+                }
+                if (password.Length <= 8)
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Password phải từ 8 ký tự trở lên</h3>";
+                    return View();
                 }
             }
             string img = "/UploadedFiles/anonymous-profile.jpg";
