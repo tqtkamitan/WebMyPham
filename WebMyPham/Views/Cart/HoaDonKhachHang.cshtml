@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "HoaDonKhachHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto w-md-50">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Các hoá đơn của bạn @Session["user"].ToString()
+        </div>
+        <div class="card-body">
+            <table class="table text-center" style="table-layout:fixed;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Ngày yêu cầu</th>
+                        <th scope="col">Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.HoaDon != null)
+                    {
+                        foreach (var item in ViewBag.HoaDon)
+                        {
+                            if (item.account == Session["user"].ToString())
+                            {
+                                <tr>
+                                    <td>@item.product</td>
+                                    <td>@item.amount</td>
+                                    <td>@item.totalMoney</td>
+                                    <td>@item.DateAdded.ToString("dd/MM/yyyy")</td>
+                                    @if (item.hadDelivered == true)
+                                    {
+                                        <td><a class="btn btn-success" href="#">Đã giao</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a class="btn btn-info" href="#">Chưa giao</a></td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

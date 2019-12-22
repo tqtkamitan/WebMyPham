@@ -1,0 +1,89 @@
+﻿@using WebMyPham.Models
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container mx-auto w-50">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Thêm mới sản phẩm
+        </div>
+        <div class="card-body">
+            <form action="~/Admin/AddProduct" method="post" class="form-inline"  enctype="multipart/form-data">
+                <div class="form-group w-100">
+                    <label for="exampleInputEmail1" class="col-md-12">Sản phẩm</label>
+                    <input type="text" class="form-control col-md-12" id="" name="productName" aria-describedby="emailHelp" placeholder="Enter your product name here.">
+                    <small id="emailHelp" class="form-text text-muted col-md-12">Tên và mã hiệu sản phẩm</small>
+
+                    <label for="exampleInputEmail1" class="col-md-12">Giá sản phẩm</label>
+                    <input type="text" class="form-control col-md-12" id="" name="price" aria-describedby="emailHelp" placeholder="Enter your product price here.">
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Diễn tả sản phẩm</label>
+                    <textarea type="text" class="form-control col-md-12" id="" name="description" aria-describedby="emailHelp"></textarea>
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Hãng sản xuất</label>
+                    <select type="text" class="form-control col-md-12" id="" name="producer">
+                        @if (ViewBag.Producer != null)
+                        {
+
+                            foreach (var item in ViewBag.Producer)
+                            {
+                                <option value="@item.producer">@item.producer</option>
+                            }
+                        }
+                    </select>
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Thể loại</label>
+                    <select type="text" class="form-control col-md-12 selectpicker" multiple id="" name="caterogy" data-live-search="true">
+                        @if (ViewBag.Caterory != null)
+                        {
+
+                            foreach (var item in ViewBag.Caterory)
+                            {
+                                <option value="@item.idCaterogy">@item.caterory</option>
+                            }
+                        }
+                    </select>
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Ngày nhập</label>
+                    <input type="date" class="form-control col-md-12" id="date_input" name="dateAdded" aria-describedby="emailHelp">
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Tình trạng hàng</label>
+                    <select type="text" class="form-control col-md-12" id="" name="status">
+                        <option>Còn hàng</option>
+                        <option>Hết hàng</option>
+                        <option>Liên hệ thêm</option>
+                        <option>Ngừng bán</option>
+                    </select>
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Hình ảnh cho sản phẩm</label>
+                    <input type="file" class="form-control col-md-12" id="" name="img" aria-describedby="emailHelp">
+
+                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Hình ảnh để hiện thỉ</label>
+                    <input type="file" class="form-control col-md-12" id="" name="imgs" aria-describedby="emailHelp" multiple>
+                    <small id="emailHelp" class="form-text text-muted col-md-12">Khoảng 4 tấm ảnh</small>
+
+                    <div class="col-md-12 d-flex justify-content-center" style="margin-top:20px">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="#" class="btn btn-outline-primary" style="margin-left:10px">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() + '-' + month + '-' + day;
+        $("#date_input").val(today);
+    });
+</script>
+

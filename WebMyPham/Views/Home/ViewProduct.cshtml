@@ -1,0 +1,111 @@
+﻿@model WebMyPham.Models.Product
+@{
+    ViewBag.Title = "ViewProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .flexslider .slides > li {
+        display: none;
+        -webkit-backface-visibility: hidden;
+        background-color: #ffffff;
+        text-align: center;
+    }
+
+    .flexslider .slides img {
+        width: auto;
+        display: inline;
+    }
+</style>
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+                    Thông tin sản phẩm
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="flexslider">
+                                <ul class="slides">
+                                        @foreach (var item in ViewBag.ProductImg)
+                                        {
+                                            <li data-thumb="@item.Imgs">
+                                                <img src="@item.Imgs" style="width: 300px; height: 300px;" />
+                                            </li>
+                                        }
+                                </ul>
+                            </div>
+                            @*<img alt="@Model.productName" src="@Model.img" style="width: 300px; height: 300px;" />*@
+                        </div>
+                        <div class="col-md-6 row">
+                            <div class="col-md-12">
+                                Tên sản phẩm:
+                                @Html.DisplayFor(model => model.productName)
+                            </div>
+                            <div class="col-md-12">
+                                Giá Sản phẩm:
+                                @Html.DisplayFor(model => model.price)
+                            </div>
+                            <div class="col-md-12">
+                                Hãng sản xuất:
+                                @Html.DisplayFor(model => model.producer)
+                            </div>
+                            <div class="col-md-12">
+                                Loại:
+                                @if (ViewBag.ProductCaterogy != null)
+                                {
+                                    foreach (var ProductCaterogy in ViewBag.ProductCaterogy)
+                                    {
+                                        if (ViewBag.ProductCaterogy != null)
+                                        {
+                                            foreach (var caterogy in ViewBag.Caterogy)
+                                            {
+                                                if (ProductCaterogy.idCaterogy == caterogy.idCaterogy)
+                                                {
+                                                    @ProductCaterogy.caterogy @(", ")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-12">
+                                Tình trạng:
+                                @Html.DisplayFor(model => model.status)
+                            </div>
+                            <div class="col-md-12">
+                                Mô tả:
+                                @Html.DisplayFor(model => model.description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-info w-100" href="@Url.Action("ThemVaoGio", "Cart", new { idPay = Url.RequestContext.RouteData.Values["id"] })"><h4>Thêm vào giỏ</h4></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-2">
+            <div class="card">
+                <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+                    Sản phẩm cùng danh Mục
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+});
+</script>
+

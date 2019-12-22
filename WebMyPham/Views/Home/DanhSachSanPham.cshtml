@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "DanhSachSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Danh sách các sản phẩm trong cửa hàng
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Product == null)
+            {
+                <h3>Không có sản phẩm nào cả</h3>
+            }
+            else
+            {
+                foreach (var item in ViewBag.Product)
+                {
+                    <div class="border p-1 m-1" onmouseover="MouseEventIn(this)" onmouseout="MouseEventOut(this)">
+                        <a href="~/Home/ViewProduct/@item.idProduct">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-3">
+                                    <img style="width:180px; height:200px" src="@item.img" alt="hình sản phẩm" />
+                                </div>
+                                <div class="col-md-9 text-dark">
+                                    <p class="card-text"><h5>@item.productName</h5></p>
+                                    <p class="card-text" style="color:red">Giá: @item.price</p>
+                                    <p class="card-text">Giới thiệu: @item.description</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function MouseEventIn(x) {
+        $(x).addClass('border-primary');
+        $(x).addClass('bg-light');
+    }
+    function MouseEventOut(x) {
+        $(x).removeClass('border-primary');
+        $(x).removeClass('bg-light');
+    }
+</script>
+
+
+
+

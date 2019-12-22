@@ -1,0 +1,181 @@
+﻿@using WebMyPham.Models
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Danh sách các sản phẩm trên trang
+        </div>
+        <div class="card-body">
+            <div class="" style="margin-bottom:50px">
+                <a class="float-right btn btn-primary" href="~/Admin/AddProduct">Thêm Mới</a>
+            </div>
+            <table class="table text-center" style="table-layout:fixed;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Nhà sản xuất</th>
+                        <th scope="col">Thể loại</th>
+                        <th scope="col">Ngày thêm</th>
+                        <th scope="col">Tình trạng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Product != null)
+                    {
+                        foreach (var item in ViewBag.Product)
+                        {
+                            <tr>
+                                <td>@item.idProduct</td>
+                                <td>@item.productName</td>
+                                <td>@item.price</td>
+                                <td>@item.producer</td>
+                                <td>
+                                    @if (ViewBag.ProductCaterogy != null)
+                                    {
+                                        foreach (var ProductCaterogy in ViewBag.ProductCaterogy)
+                                        {
+                                            if (ViewBag.ProductCaterogy != null)
+                                            {
+                                                foreach (var caterogy in ViewBag.Caterogy)
+                                                {
+                                                    if (ProductCaterogy.idProduct == item.idProduct)
+                                                    {
+                                                        if (ProductCaterogy.idCaterogy == caterogy.idCaterogy)
+                                                        {
+                                                            @ProductCaterogy.caterogy @(", ")
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                </td>
+                                <td>@item.dateAdded</td>
+                                <td>@item.status</td>
+                                <td style="white-space: nowrap;"> 
+                                    <a href="#tips-@item.idProduct" data-toggle="modal" class="btn btn-outline-primary" style="margin-right:10px">Sửa</a>
+                                    <a href="#" class="btn btn-outline-primary">Xoá</a>
+                                </td>
+                            </tr>
+
+                            <!--modal edit-->
+                            <div class="modal fade modal-centered" id="tips-@item.idProduct" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Sửa sản phẩm</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="~/Admin/EditProduct/@item.idProduct" method="post" class="form-inline" enctype="multipart/form-data">
+                                                <div class="form-group w-100">
+                                                    <label for="exampleInputEmail1" class="col-md-12">Sản phẩm</label>
+                                                    <input type="text" class="form-control col-md-12" value="@item.productName" id="" name="productName" aria-describedby="emailHelp" placeholder="Enter your product name here.">
+                                                    <small id="emailHelp" class="form-text text-muted col-md-12">Tên và mã hiệu sản phẩm</small>
+
+                                                    <label for="exampleInputEmail1" class="col-md-12">Giá sản phẩm</label>
+                                                    <input type="text" class="form-control col-md-12" id="" value="@item.price" name="price" aria-describedby="emailHelp" placeholder="Enter your product price here.">
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Diễn tả sản phẩm</label>
+                                                    <textarea type="text" class="form-control col-md-12" id="" name="description" aria-describedby="emailHelp">@item.description</textarea>
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Hãng sản xuất</label>
+                                                    <select type="text" class="form-control col-md-12" id="" name="producer">
+                                                        @if (ViewBag.Producer != null)
+                                                        {
+                                                            foreach (var producer in ViewBag.Producer)
+                                                            {
+                                                                if (item.producer == producer.producer)
+                                                                {
+                                                                    <option value="@producer.producer" selected>@producer.producer</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@producer.producer">@producer.producer</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Thể loại</label>
+                                                    <select type="text" class="form-control col-md-12 selectpicker" multiple id="" name="caterogy" data-live-search="true">
+                                                        @if (ViewBag.Caterogy != null)
+                                                        {
+
+                                                            foreach (var caterogy in ViewBag.Caterogy)
+                                                            {
+                                                                bool hadupdated = false;
+                                                                if (ViewBag.ProductCaterogy != null)
+                                                                {
+                                                                    foreach (var ProductCaterogy in ViewBag.ProductCaterogy)
+                                                                    {
+                                                                        if (ProductCaterogy.idProduct == item.idProduct)
+                                                                        {
+                                                                            if (ProductCaterogy.idCaterogy == caterogy.idCaterogy)
+                                                                            {
+                                                                                hadupdated = true;
+                                                                                break;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                hadupdated = false;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if (hadupdated == false)
+                                                                {
+                                                                    <option value="@caterogy.idCaterogy">@caterogy.caterory</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option selected value="@caterogy.idCaterogy">@caterogy.caterory</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Ngày nhập</label>
+                                                    <input value="@item.dateAdded" type="date" class="form-control col-md-12" id="date_input" name="dateAdded" aria-describedby="emailHelp">
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Tình trạng hàng</label>
+                                                    <select type="text" class="form-control col-md-12" id="" name="status">
+                                                        <option>Còn hàng</option>
+                                                        <option>Hết hàng</option>
+                                                        <option>Liên hệ thêm</option>
+                                                        <option>Ngừng bán</option>
+                                                    </select>
+
+                                                    <label for="exampleInputEmail1" class="col-md-12" style="margin-top:20px">Hình ảnh cho sản phẩm</label>
+                                                    <input type="file" class="form-control col-md-12" id="" name="img" aria-describedby="emailHelp">
+
+                                                    <div class="col-md-12 d-flex justify-content-center" style="margin-top:20px">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <button data-dismiss="modal" class="btn btn-outline-primary" style="margin-left:10px">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

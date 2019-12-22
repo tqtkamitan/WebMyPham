@@ -1,0 +1,182 @@
+﻿@using WebMyPham.Models
+@model List<PayCheck>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img src="~/Img/banner-board.png" />
+                        </li>
+                        <li>
+                            <img src="~/Img/doctor.jpg" />
+                        </li>
+                        <li>
+                            <img src="~/Img/feae0d0df9bb1ce545aa.jpg" />
+                        </li>
+                        <li>
+                            <img src="~/Img/Tư-vấn-có-nên-sử-dụng-mỹ-phẩm-ở-tuổi-dậy-thì-không.jpg" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 p-3">
+            <div class="card">
+                <div class="card-header text-light bg-secondary">
+                    <h4><strong>Giới thiệu</strong></h4>
+                </div>
+                <div class="card-body row flexslider3 carousel">
+                    @if (ViewBag.Product != null)
+                    {
+                        <ul class="slides">
+                            @foreach (var item in ViewBag.Product)
+                            {
+                                <li class="">
+                                    <a href="~/Home/ViewProduct/@item.idProduct" class="">
+                                        <img src="@item.img" class="card-img-top book-img" alt="...">
+                                        <div class="card-body text-center">
+                                            <p class="card-text">@item.productName</p>
+                                            <p class="card-text" style="color:red">Giá: @item.price</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-light bg-secondary">
+                    <h4><strong>Mới nhất</strong></h4>
+                </div>
+                <div class="card-body row flexslider3 carousel">
+                    @if (ViewBag.NewProduct != null)
+                    {
+                    <ul class="slides">
+                        @foreach (var item in ViewBag.NewProduct)
+                        {
+                        <li class="">
+                            <a href="~/Home/ViewProduct/@item.idProduct" class="">
+                                <img src="@item.img" class="card-img-top book-img" alt="...">
+                                <div class="card-body text-center">
+                                    <p class="card-text">@item.productName</p>
+                                    <p class="card-text" style="color:red">Giá: @item.price</p>
+                                </div>
+                            </a>
+                        </li>
+                        }
+                    </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 p-3">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header text-light bg-secondary">
+                        Thông tin giỏ hàng bạn
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-md-12">
+                            <a href="~/Cart/Index" class="row">
+                                <div class="col-md-4"><img id="logo-header" src="~/Img/shopping-cart-icon-png-14.jpg" /></div>
+                                <div class="col-md-8">
+                                    @if (Model == null || Model.Count == 0)
+                                    {
+                                        <span>Giỏ hàng</span>
+                                        <br /><span>Giỏ rỗng</span>
+                                        <br /><span>0 đồng</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Giỏ hàng</span>
+                                        <br /><span>@Model.Sum(m => m.amount) sản phẩm</span>
+                                        <br /><span>@Model.Sum(m => m.totalMoney).ToString("#,##0").Replace(',', '.') đồng</span>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-12"><a href="~/Admin/AdminSite"><i class="material-icons">contact_support</i>Hỗ trợ khách hàng</a></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header text-light bg-secondary">
+                        Chất lượng cho tất cả
+                    </div>
+                    <div class="card-body row">
+                        <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" href="#"><img src="~/Img/img_quality_1.jpg" style="float:unset; width:100%" /><br />Thanh toán khi nhận hàng</a></span>
+                        <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" href="#"><img src="~/Img/delivery-120-minutes.png" style="float:unset; width:100%" /><br />Giao hàng dưới 2h</a></span>
+                        <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" href="#"><img src="~/Img/img_quality_3.svg" style="float:unset; width:100%" /><br />14 ngày đổi trả miễn phí</a></span>
+                        <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" href="#"><img src="~/Img/img_quality_4.svg" style="float:unset; width:100%" /><br />Hàng chính hãng</a></span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header text-light bg-secondary">
+                        Các loại sản phẩm bạn có thể muốn xem
+                    </div>
+                    <div class="card-body row">
+                        @if (ViewBag.randomCaterogy != null)
+                        {
+                            foreach (var item in ViewBag.randomCaterogy)
+                            {
+                                <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" style="white-space:nowrap" href="~/Home/ViewTheLoai/@item.idCaterogy">@item.caterory</a></span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header text-light bg-secondary">
+                        Các hãng sản xuất bạn có thể muốn xem
+                    </div>
+                    <div class="card-body row">
+                        @if (ViewBag.randomProducer != null)
+                        {
+                            foreach (var item in ViewBag.randomProducer)
+                            {
+                                <span class="col-md-6 p-0"><a class="btn btn-outline-info text-info w-100" style="white-space:nowrap" href="~/Home/ViewProducer/@item.idProducer">@item.producer</a></span>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .flexslider {
+        width: 100%;
+        height: 500px;
+    }
+
+        .flexslider .slides img {
+            width: 100%;
+            height: 500px;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            animationLoop: true,
+
+        });
+
+        $('.flexslider3').flexslider({
+            animation: "slide",
+            animationLoop: true,
+            itemWidth: 210,
+            itemMargin: 5,
+            pauseOnHover: true,
+            mousewheel: true,
+        });
+    });
+</script>

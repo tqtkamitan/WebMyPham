@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "DonDatHang";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Đơn đặt hàng của khách hàng
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive text-center" style="table-layout:fixed;">
+                <thead class="thead-dark" style="white-space:nowrap;">
+                    <tr>
+                        <th scope="col">Tài khoản</th>
+                        <th scope="col">Tên khách</th>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Ngày yêu cầu</th>
+                        <th scope="col">Tình trạng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody style="white-space:nowrap;">
+                    @if (ViewBag.HoaDon != null)
+                    {
+                        foreach (var item in ViewBag.HoaDon)
+                        {
+                    <tr>
+                        <td>@item.account</td>
+                        <td>@item.customerName</td>
+                        <td>@item.product</td>
+                        <td>@item.amount</td>
+                        <td>@item.totalMoney</td>
+                        <td>@item.phoneNumber</td>
+                        <td>@item.address</td>
+                        <td>@item.DateAdded.ToString("dd/MM/yyyy")</td>
+                        @if (@item.hadDelivered == false)
+                        {
+                            <td>Chưa giao</td>
+                        }
+                        else
+                        {
+                            <td>Đã giao</td>
+                        }
+                        @if (item.hadDelivered == true)
+                        {
+                            <td><a class="btn btn-success disabled" href="#">Đã giao</a></td>
+                        }
+                        else
+                        {
+                            <td><a class="btn btn-info" href="~/Cart/DaGiaoHang/@item.idPay">Chưa giao</a></td>
+                        }
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

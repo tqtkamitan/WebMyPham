@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "DoanhThu";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Doanh thu
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div id="chartContainer" class="border" style="height: 400px; width: 100%;"></div>
+                <div class="col-md-12"><small>Doanh thu tháng này:</small></div>
+                <div class="col-md-12">
+                    @if (ViewBag.HoaDon != null)
+                    {
+                        int totalMonthMoney = 0;
+                        DateTime dateTime = DateTime.Now;
+                        int nowMonth = Int32.Parse(dateTime.Month.ToString("00"));
+                        foreach (var item in ViewBag.HoaDon)
+                        {
+                            if (Int32.Parse(item.DateAdded.Month.ToString("00")) == nowMonth && item.hadDelivered == true)
+                            {
+                                totalMonthMoney = totalMonthMoney + item.totalMoney;
+                            }
+                        }
+                        <h4>@totalMonthMoney.ToString("#,##0").Replace(',', '.') VNĐ</h4>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Doanh thu năm nay"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{
+		type: "line",
+        dataPoints: [
+        @if (ViewBag.HoaDon != null)
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                int totalMonthMoney = 0;
+                foreach (var item in ViewBag.HoaDon)
+                {
+                    if (Int32.Parse(item.DateAdded.Month.ToString("00")) == i && item.hadDelivered == true)
+                    {
+                        totalMonthMoney = totalMonthMoney + item.totalMoney;
+                    }
+                }
+                @Html.Raw("{ y: " + totalMonthMoney + ", x: " + i + "},");
+            }
+        }
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+

@@ -1,0 +1,104 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="~/Img/logomypham.png" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <!-- flexslider -->
+    <link rel="stylesheet" href="~/Content/woocommerce-FlexSlider-690832b/flexslider.css"/>
+    <script src="~/Content/woocommerce-FlexSlider-690832b/jquery.flexslider.js"></script>
+    <style>
+        .container{
+            margin-top:50px;
+        }
+    </style>
+
+    <title>@ViewBag.Title - Asene</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body style="background-color: pink;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="~/Home/Index"><img id="logo-header" src="~/Img/logomypham.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active border-left">
+                    <a class="nav-link" href="~/Home/Index"><i class="material-icons">home</i> Trang chủ </a>
+                </li>
+                <li class="nav-item border-left">
+                    <a class="nav-link" href="~/Home/DanhSachSanPham"><i class="material-icons">view_list</i>Danh sách</a>
+                </li>
+                <li class="nav-item dropdown border-left">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">view_headline</i>Thể loại
+                    </a>
+                    <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="~/Home/DanhSachTheLoai">Tất cả</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 float-right d-flex align-items-center border-left p-3">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="material-icons">search</i></button>
+            </form>
+            @if (Session["user"] == null)
+            {
+                <div class="my-2 my-lg-0 nav-item dropdown border-left float-right">
+                    <a href="~/User/Login" class="nav-link">Đăng nhập</a>
+                </div>
+            }
+            else
+            {
+                foreach (var user in ViewBag.Account)
+                {
+                    <div class="my-2 my-lg-0 nav-item dropdown border-left float-right">
+                        @if (user.email == Session["user"].ToString())
+                        {
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-circle" src="@user.img" id="logo-header" style="border-radius: 50%;" />Xin chào @user.name
+                            </a>
+                        }
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="~/Admin/AdminSite">Admin Site</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/User/Logout">Đăng xuất</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+    <footer class="bg-dark text-light text-center p-3">
+        <p>&copy; @DateTime.Now.Year - làm bởi công sức và mồ hôi =)) Quang Tân, Minh Quang, Đình Tài</p>
+    </footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

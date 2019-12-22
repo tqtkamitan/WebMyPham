@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "DanhSachTheLoai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="card">
+        <div class="card-header bg-primary text-light text-center" style="font-size:25px">
+            Danh sách các loại sản phẩm
+        </div>
+        <div class="card-body">
+            <table class="table table-borderless text-center" style="table-layout:fixed;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Caterogy != null)
+                    {
+                        foreach (var item in ViewBag.Caterogy)
+                        {
+                                <tr class="m-1">
+                                    <td><a class="text-dark" href="~/Home/ViewTheLoai/@item.idCaterogy">@item.caterory</a></td>
+                                </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
