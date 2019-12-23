@@ -54,9 +54,14 @@
                     </a>
                     <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="~/Home/DanhSachTheLoai">Tất cả</a>
-                        <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        @if (ViewBag.randomCaterogy != null)
+                        {
+                            foreach (var item in ViewBag.randomCaterogy)
+                            {
+                        <a class="dropdown-item" style="white-space:nowrap" href="~/Home/ViewTheLoai/@item.idCaterogy">@item.caterory</a>
+                            }
+                        }
                     </div>
                 </li>
             </ul>
@@ -83,7 +88,7 @@
                         }
                         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="~/Admin/AdminSite">Admin Site</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="~/User/UserDetail">Thông tin của bạn</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="~/User/Logout">Đăng xuất</a>
                         </div>

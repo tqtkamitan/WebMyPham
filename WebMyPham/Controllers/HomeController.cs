@@ -17,9 +17,9 @@ namespace WebMyPham.Controllers
         {
             ViewBag.Account = AccountAction.GetAll();
             var randomProduct = db.Products.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.Product = randomProduct;
             var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
             var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
-            ViewBag.Product = randomProduct;
             ViewBag.randomCaterogy = randomCaterogy;
             ViewBag.randomProducer = randomProducer;
             ViewBag.NewProduct = ProductAction.GetAll();
@@ -38,6 +38,10 @@ namespace WebMyPham.Controllers
                             select l;
                 List<Product> chapter_list = links.ToList();
                 ViewBag.Product = chapter_list;
+                var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+                var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+                ViewBag.randomCaterogy = randomCaterogy;
+                ViewBag.randomProducer = randomProducer;
                 return View();
             }
             else
@@ -46,6 +50,10 @@ namespace WebMyPham.Controllers
                            select l;
                 List<Product> chapter_list = link.ToList();
                 ViewBag.Product = chapter_list;
+                var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+                var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+                ViewBag.randomCaterogy = randomCaterogy;
+                ViewBag.randomProducer = randomProducer;
                 return View();
             }
         }
@@ -53,6 +61,10 @@ namespace WebMyPham.Controllers
         public ActionResult About()
         {
             ViewBag.Account = AccountAction.GetAll();
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -61,6 +73,10 @@ namespace WebMyPham.Controllers
         public ActionResult Contact()
         {
             ViewBag.Account = AccountAction.GetAll();
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
             ViewBag.Message = "Your contact page.";
 
             return View();
@@ -73,6 +89,10 @@ namespace WebMyPham.Controllers
             }
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Product = ProductAction.GetAll();
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
             ViewBag.ProductCaterogy = Product_CaterogyAction.GetAll();
             ViewBag.Caterogy = CateroryAction.GetAll();
             ViewBag.ProductImg = productImg.getAllProductImg(id);
@@ -88,11 +108,20 @@ namespace WebMyPham.Controllers
         {
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Product = ProductAction.GetAll();
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
             return View();
         }
 
         public ActionResult DanhSachTheLoai()
         {
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
+            ViewBag.Account = AccountAction.GetAll();
             ViewBag.Caterogy = CateroryAction.GetAll();
             return View();
         }
@@ -106,6 +135,10 @@ namespace WebMyPham.Controllers
             ViewBag.Product = ProductAction.GetAll();
             ViewBag.ProductCaterogy = Product_CaterogyAction.GetAll();
             ViewBag.Caterogy = CateroryAction.GetAll();
+            var randomCaterogy = db.Caterogies.OrderBy(x => Guid.NewGuid()).Take(6);
+            var randomProducer = db.Producers.OrderBy(x => Guid.NewGuid()).Take(6);
+            ViewBag.randomCaterogy = randomCaterogy;
+            ViewBag.randomProducer = randomProducer;
             ViewBag.caterogyId = links;
             return View();
         }

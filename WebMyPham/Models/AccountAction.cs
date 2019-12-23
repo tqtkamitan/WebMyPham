@@ -51,5 +51,21 @@ namespace WebMyPham.Models
             }
             return list_acc;
         }
+
+        public static void EditAccount(string email, string name, string phoneNumber, string address, string img, string password)
+        {
+            using (var db = new DataContext())
+            {
+                var product = db.Accounts.Find(email);
+                product.name = name;
+                product.phoneNumber = phoneNumber;
+                product.address = address;
+                product.img = img;
+                product.password = password;
+                db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                db.Dispose();
+            }
+        }
     }
 }

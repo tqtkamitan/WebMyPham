@@ -44,6 +44,31 @@ namespace WebMyPham.Controllers
         [HttpPost]
         public ActionResult AddProduct(string productName, int price, string description, string producer, string[] caterogy, DateTime dateAdded, string status, HttpPostedFileBase img, HttpPostedFileBase[] imgs) {
             string _path = "";
+            if (productName == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy viết tên sản phẩm</h3>";
+                return View();
+            }
+            else if (price <= 0)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy viết giá sản phẩm</h3>";
+                return View();
+            }
+            else if (producer == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn hãng sản xuất sản phẩm</h3>";
+                return View();
+            }
+            else if (caterogy.Length == 0)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn loại sản phẩm</h3>";
+                return View();
+            }
+            else if (img == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn hình</h3>";
+                return View();
+            }
             if (img.ContentLength > 0)
             {
                 string _FileName = Path.GetFileName(img.FileName);
@@ -57,6 +82,31 @@ namespace WebMyPham.Controllers
         [HttpPost]
         public ActionResult EditProduct(int id, string productName, int price, string description, string producer, string[] caterogy, DateTime dateAdded, string status, HttpPostedFileBase img)
         {
+            if (productName == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy viết tên sản phẩm</h3>";
+                return View();
+            }
+            else if (price <= 0)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy viết giá sản phẩm</h3>";
+                return View();
+            }
+            else if (producer == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn hãng sản xuất sản phẩm</h3>";
+                return View();
+            }
+            else if (caterogy.Length == 0)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn loại sản phẩm</h3>";
+                return View();
+            }
+            else if (img == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin hãy chọn hình</h3>";
+                return View();
+            }
             string _path = "";
             if (img == null)
             {
@@ -93,6 +143,11 @@ namespace WebMyPham.Controllers
         [HttpPost]
         public ActionResult AddProducer(string producer)
         {
+            if (producer == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin viết tên hãng sản xuất</h3>";
+                return View();
+            }
             ProducerAction.Create(producer);
             return Redirect("~/Admin/ProducerList");
         }
@@ -117,6 +172,11 @@ namespace WebMyPham.Controllers
         [HttpPost]
         public ActionResult AddCaterory(string caterory)
         {
+            if (caterory == null)
+            {
+                ViewBag.Noti = "<h3 class='text-danger'>Xin viết loại sản phẩm</h3>";
+                return View();
+            }
             CateroryAction.Create(caterory);
             return Redirect("~/Admin/CateroryList");
         }

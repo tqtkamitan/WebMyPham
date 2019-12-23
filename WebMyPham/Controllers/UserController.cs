@@ -137,10 +137,7 @@ namespace WebMyPham.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult EditUserInfo(int id)
-        {
-            return View();
-        }
+
         public ActionResult AccountList()
         {
             if (Session["user"] == null) return RedirectToAction("Index", "Home");
@@ -163,6 +160,70 @@ namespace WebMyPham.Controllers
             }
             ViewBag.Employee = AccountAction.GetAllEmployee();
             ViewBag.Account = AccountAction.GetAll();
+            return View();
+        }
+
+        public ActionResult UserDetail()
+        {
+            if (Session["user"] == null) return RedirectToAction("Index", "Home");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            ViewBag.User = account;
+            ViewBag.Account = AccountAction.GetAll();
+            return View();
+        }
+
+        public ActionResult EditUserInfo()
+        {
+            if (Session["user"] == null) return RedirectToAction("Index", "Home");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            ViewBag.User = account;
+            ViewBag.Account = AccountAction.GetAll();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditUserInfo(string name, string phoneNumber, string address, string email, string password, string password2, HttpPostedFileBase img)
+        {
+            if (Session["user"] == null) return RedirectToAction("Index", "Home");
+            using (var db = new DataContext())
+            {
+                Account user = db.Accounts.Find(email);
+                if (user != null)
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Email này đã được đăng kí</h3>";
+                    return View();
+                }
+                if (!email.Contains("@"))
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Xin hãy nhập email</h3>";
+                    return View();
+                }
+                if (password != password2)
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Password nhập lại phải trùng Password nhập ban đầu</h3>";
+                    return View();
+                }
+                if (password.Length <= 8)
+                {
+                    ViewBag.Noti = "<h3 class='text-danger'>Password phải từ 8 ký tự trở lên</h3>";
+                    return View();
+                }
+            }
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            string _path = "";
+            if (img == null)
+            {
+                var book = db.Accounts.Find(email);
+                string _FileName = book.img;
+                AccountAction.EditAccount(email, name, phoneNumber, address, _FileName, password);
+            }
+            else
+            {
+                string _FileName = Path.GetFileName(img.FileName);
+                _path = Path.Combine(Server.MapPath("/UploadedFiles"), _FileName);
+                img.SaveAs(_path);
+                AccountAction.EditAccount(email, name, phoneNumber, address, "/UploadedFiles/" + _FileName, password);
+            }
             return View();
         }
     }

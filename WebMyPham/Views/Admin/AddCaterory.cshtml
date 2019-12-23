@@ -10,6 +10,10 @@
             Thêm mới thể loại
         </div>
         <div class="card-body">
+            @if (ViewBag.Noti != null)
+            {
+                @Html.Raw(ViewBag.Noti)
+            }
             <form action="~/Admin/AddCaterory" method="post" class="form-inline">
                 <div class="form-group w-100">
                     <label for="exampleInputEmail1" class="col-md-12">Thể loại</label>

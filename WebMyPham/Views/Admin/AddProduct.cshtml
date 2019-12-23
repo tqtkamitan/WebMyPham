@@ -10,7 +10,11 @@
             Thêm mới sản phẩm
         </div>
         <div class="card-body">
-            <form action="~/Admin/AddProduct" method="post" class="form-inline"  enctype="multipart/form-data">
+            @if (ViewBag.Noti != null)
+            {
+                @Html.Raw(ViewBag.Noti)
+            }
+            <form action="~/Admin/AddProduct" method="post" class="form-inline" enctype="multipart/form-data">
                 <div class="form-group w-100">
                     <label for="exampleInputEmail1" class="col-md-12">Sản phẩm</label>
                     <input type="text" class="form-control col-md-12" id="" name="productName" aria-describedby="emailHelp" placeholder="Enter your product name here.">

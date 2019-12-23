@@ -10,6 +10,10 @@
             Thêm mới nhà sản xuất
         </div>
         <div class="card-body">
+            @if (ViewBag.Noti != null)
+            {
+                @Html.Raw(ViewBag.Noti)
+            }
             <form action="~/Admin/AddProducer" method="post" class="form-inline">
                 <div class="form-group w-100">
                     <label for="exampleInputEmail1" class="col-md-12 text-left">Nhà sản xuất</label>
