@@ -144,7 +144,7 @@ namespace WebMyPham.Controllers
             Account account = db.Accounts.Find(Session["user"].ToString());
             if (account.role != "Nhân viên")
             {
-                return RedirectToAction("AdminSite", "Admin");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.Account = AccountAction.GetAll();
             return View();
@@ -156,7 +156,7 @@ namespace WebMyPham.Controllers
             Account account = db.Accounts.Find(Session["user"].ToString());
             if (account.role != "Nhân viên")
             {
-                return RedirectToAction("AdminSite", "Admin");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.Employee = AccountAction.GetAllEmployee();
             ViewBag.Account = AccountAction.GetAll();

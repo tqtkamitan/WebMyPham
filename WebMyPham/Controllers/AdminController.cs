@@ -18,12 +18,22 @@ namespace WebMyPham.Controllers
         public ActionResult AdminSite()
         {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             return View();
         }
         public ActionResult ProductList()
         {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Product = ProductAction.GetAll();
             ViewBag.ProductCaterogy = Product_CaterogyAction.GetAll();
@@ -35,6 +45,11 @@ namespace WebMyPham.Controllers
         [HttpGet]
         public ActionResult AddProduct() {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Caterory = CateroryAction.GetAll();
             ViewBag.Producer = ProducerAction.GetAll();
@@ -127,6 +142,11 @@ namespace WebMyPham.Controllers
 
         public ActionResult ProducerList() {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Producer = ProducerAction.GetAll();
             return View();
@@ -135,6 +155,11 @@ namespace WebMyPham.Controllers
         [HttpGet]
         public ActionResult AddProducer()
         {
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (Session["user"] == null) return RedirectToAction("Login", "User");
             ViewBag.Account = AccountAction.GetAll();
             return View();
@@ -156,6 +181,11 @@ namespace WebMyPham.Controllers
         public ActionResult CateroryList()
         {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             ViewBag.Caterory = CateroryAction.GetAll();
             return View();
@@ -165,6 +195,11 @@ namespace WebMyPham.Controllers
         public ActionResult AddCaterory()
         {
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.Account = AccountAction.GetAll();
             return View();
         }
@@ -185,6 +220,11 @@ namespace WebMyPham.Controllers
         {
             ViewBag.Account = AccountAction.GetAll();
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.HoaDon = PayCheck.GetAll();
             return View();
         }

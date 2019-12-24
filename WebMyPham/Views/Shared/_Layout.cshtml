@@ -26,7 +26,7 @@
     <script src="~/Content/woocommerce-FlexSlider-690832b/jquery.flexslider.js"></script>
     <style>
         .container{
-            margin-top:50px;
+            margin-top:100px;
         }
     </style>
 
@@ -34,7 +34,7 @@
     @Styles.Render("~/Content/css")
 </head>
 <body style="background-color: pink;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white" style="position:fixed; z-index:9999; top: 0; width:100%">
         <a class="navbar-brand" href="~/Home/Index"><img id="logo-header" src="~/Img/logomypham.png" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
                         {
                             foreach (var item in ViewBag.randomCaterogy)
                             {
-                        <a class="dropdown-item" style="white-space:nowrap" href="~/Home/ViewTheLoai/@item.idCaterogy">@item.caterory</a>
+                                <a class="dropdown-item" style="white-space:nowrap" href="~/Home/ViewTheLoai/@item.idCaterogy">@item.caterory</a>
                             }
                         }
                     </div>
@@ -86,24 +86,28 @@
                                 <img class="img-circle" src="@user.img" id="logo-header" style="border-radius: 50%;" />Xin chào @user.name
                             </a>
                         }
-                            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="~/Admin/AdminSite">Admin Site</a>
-                                <a class="dropdown-item" href="~/User/UserDetail">Thông tin của bạn</a>
-                                <a class="dropdown-item" href="~/Cart/HoaDonKhachHang">Hoá đơn của bạn</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="~/User/Logout">Đăng xuất</a>
-                            </div>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="~/Admin/AdminSite">Admin Site</a>
+                            <a class="dropdown-item" href="~/User/UserDetail">Thông tin của bạn</a>
+                            <a class="dropdown-item" href="~/Cart/HoaDonKhachHang">Hoá đơn của bạn</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/User/Logout">Đăng xuất</a>
+                        </div>
                     </div>
                 }
             }
         </div>
     </nav>
+    @*<img src="~/Img/topright.png" style="display:block; position:fixed; z-index:9999; top: 0; right: 0;" />*@
+    <img src="~/Img/topleft.png" style="display:block; position:fixed; z-index:9999; top: 0; left: 0;" />
+    <img src="~/Img/ft.png" style="display:block; position:fixed; z-index:9999; bottom: 0; left: 0; width:100%" />
+    <img src="~/Img/bottomleft.png" style="display:block; position:fixed; z-index:9999; bottom: 15px; left: 0;" />
     <div class="container body-content">
-        @RenderBody()
+            @RenderBody()
         <hr />
     </div>
-    <footer class="bg-dark text-light text-center p-3">
-        <p>&copy; @DateTime.Now.Year - làm bởi công sức và mồ hôi =)) Quang Tân, Minh Quang, Đình Tài</p>
+    <footer style="margin-bottom:75px" class="bg-dark text-light text-center p-3">
+        <p>&copy; @DateTime.Now.Year - CÔNG TY CỔ PHẦN Asane</p>
     </footer>
     @RenderSection("scripts", required: false)
 </body>

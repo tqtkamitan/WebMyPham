@@ -143,6 +143,11 @@ namespace WebMyPham.Controllers
         {
             ViewBag.Account = AccountAction.GetAll();
             if (Session["user"] == null) return RedirectToAction("Login", "User");
+            Account account = db.Accounts.Find(Session["user"].ToString());
+            if (account.role != "Nhân viên")
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.HoaDon = PayCheck.GetAll();
             return View();
         }
